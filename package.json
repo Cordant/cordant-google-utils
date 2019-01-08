@@ -1,0 +1,29 @@
+{
+  "name": "cordant-google-utils",
+  "version": "0.2.0",
+  "description": "collection of utils function for our usage of Google APIs",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cordant/cordant-google-utils.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cordant/cordant-google-utils/issues"
+  },
+  "homepage": "https://github.com/Cordant/cordant-google-utils#readme",
+  "dependencies": {
+    "@types/node": "^10.5.2",
+    "googleapis": "^27.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "typescript": "^3.2.2"
+  }
+}
