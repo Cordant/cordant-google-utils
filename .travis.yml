@@ -1,22 +1,14 @@
-language: python
-
-matrix:
-  include:
-    - os: linux
-      dist: trusty
-      sudo: required
-      python: 2.7
-      nodejs: 8.10
-
-before_script:
+language: node_js
+node_js:
+  - stable
+install:
+  - npm install
   - npm install -g ts-node
   - npm install -g typescript
-
 script:
-  - echo $TRAVIS_BRANCH
-  - npm i
-  - ng run build
-  - ng run test
+  - npm run cover
+# Send coverage data to Coveralls
+# after_script: "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
 branches:
   only:
     - master

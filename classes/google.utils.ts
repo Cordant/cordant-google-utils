@@ -1,5 +1,5 @@
-import googleapis from 'googleapis';
 import {JWT} from 'google-auth-library';
+import {google} from 'googleapis';
 
 export class GoogleUtils {
     private _jwtToken: JWT | undefined;
@@ -22,7 +22,7 @@ export class GoogleUtils {
             throw 'Invalid parameters';
         }
 
-        this._jwtToken = await new googleapis.google.auth.JWT({
+        this._jwtToken = await new google.auth.JWT({
             key: parameters.key,
             email: parameters.email,
             scopes: parameters.scopes,
@@ -30,11 +30,11 @@ export class GoogleUtils {
         });
     }
 
-    createEvent(calendarId: string, resource: any) {
+    async createEvent(calendarId: string, resource: any) {
         if (!this._calendar) {
-            this._calendar = googleapis.google.calendar('v3');
+            this._calendar = google.calendar('v3');
         }
-        return new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             (this._jwtToken as JWT).authorize(async (err, result) => {
                 if (err) {
                     console.trace('auth error');

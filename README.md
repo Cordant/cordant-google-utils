@@ -1,5 +1,7 @@
 # cordant-google-utils
 
+[![Build Status](https://travis-ci.com/Cordant/cordant-google-utils.svg?branch=master)](https://travis-ci.com/Cordant/cordant-google-utils)
+
 This package is meant to ease the usage of Google API for our usage.
 
 Developed by [Cordant Group](https://cordantgroup.com)
@@ -14,7 +16,7 @@ npm install cordant-google-utils
 
 Import the package, within Javascript
 ```javascript
-const GoogleUtils = require('cordant-google-utils');
+const GoogleUtils = require('cordant-google-utils').GoogleUtils;
 ```
 
  or Typescript

@@ -1,11 +1,13 @@
 {
   "name": "cordant-google-utils",
-  "version": "0.2.0",
+  "version": "0.2.8",
   "description": "collection of utils function for our usage of Google APIs",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha test/*.js -- -R spec"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,8 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "typescript": "^3.2.2"
   }
