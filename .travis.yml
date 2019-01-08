@@ -1,0 +1,24 @@
+language: python
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+      python: 2.7
+      nodejs: 8.10
+
+before_script:
+  - npm install -g ts-node
+  - npm install -g typescript
+
+script:
+  - echo $TRAVIS_BRANCH
+  - npm i
+  - ng run build
+  - ng run test
+branches:
+  only:
+    - master
+    - dev
+    - demo
