@@ -52,5 +52,74 @@ class GoogleUtils {
             });
         });
     }
+    deleteEvent(calendarId, eventId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this._calendar) {
+                this._calendar = googleapis_1.google.calendar('v3');
+            }
+            return yield new Promise((resolve, reject) => {
+                this._jwtToken.authorize((err, result) => __awaiter(this, void 0, void 0, function* () {
+                    if (err) {
+                        console.trace('auth error');
+                        throw err;
+                    }
+                    this._calendar.events.delete({
+                        auth: this._jwtToken, calendarId, eventId
+                    }, (err, event) => {
+                        if (err) {
+                            return new Error('There was an error contacting the Calendar service: ' + err);
+                        }
+                        resolve(`Event with id ${eventId} deleted successfully.`);
+                    });
+                }));
+            });
+        });
+    }
+    updateSignature(userEmail, customer, userKey, resource) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this._admin) {
+                this._admin = googleapis_1.google.calendar('directory_v1');
+            }
+            return yield new Promise((resolve, reject) => {
+                this._jwtToken.authorize((err, result) => __awaiter(this, void 0, void 0, function* () {
+                    if (err) {
+                        console.trace('auth error');
+                        throw err;
+                    }
+                    this._admin.users.update({
+                        auth: this._jwtToken, customer, userKey, resource
+                    }, (err, response) => {
+                        if (err) {
+                            return new Error('There was an error contacting the Admin service: ' + err);
+                        }
+                        resolve(response);
+                    });
+                }));
+            });
+        });
+    }
+    getSignatureData(userEmail, customer, maxResults = 1) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this._admin) {
+                this._admin = googleapis_1.google.calendar('directory_v1');
+            }
+            return yield new Promise((resolve, reject) => {
+                this._jwtToken.authorize((err, result) => __awaiter(this, void 0, void 0, function* () {
+                    if (err) {
+                        console.trace('auth error');
+                        throw err;
+                    }
+                    this._admin.users.list({
+                        auth: this._jwtToken, customer, maxResults, orderBy: 'email', query: `email=${userEmail}`
+                    }, (err, userDetails) => {
+                        if (err) {
+                            return new Error('There was an error contacting the Admin service: ' + err);
+                        }
+                        resolve(userDetails);
+                    });
+                }));
+            });
+        });
+    }
 }
 exports.GoogleUtils = GoogleUtils;
