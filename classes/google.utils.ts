@@ -31,6 +31,29 @@ export class GoogleUtils {
         });
     }
 
+    async getCalendarEvents(calendarId: string) {
+        if (!this._calendar) {
+            this._calendar = google.calendar('v3');
+        }
+        return await new Promise((resolve, reject) => {
+            (this._jwtToken as JWT).authorize(async (err, result) => {
+                if (err) {
+                    console.trace('auth error');
+                    throw err;
+                }
+
+                this._calendar.events.list({
+                    auth: this._jwtToken, calendarId
+                }, (err: any, data: any) => {
+                    if (err) {
+                        return new Error('There was an error contacting the Calendar service: ' + err);
+                    }
+                    resolve(data)
+                })
+            });
+        })
+    }
+
     async createEvent(calendarId: string, resource: any) {
         if (!this._calendar) {
             this._calendar = google.calendar('v3');
@@ -79,7 +102,7 @@ export class GoogleUtils {
 
     async updateSignature(userEmail: string, customer: string, userKey: any, resource: any) {
         if (!this._admin) {
-            this._admin = google.calendar('directory_v1');
+            this._admin = google.admin('directory_v1');
         }
         return await new Promise((resolve, reject) => {
             (this._jwtToken as JWT).authorize(async (err, result) => {
@@ -102,7 +125,7 @@ export class GoogleUtils {
 
     async getSignatureData(userEmail: string, customer: string, maxResults: number = 1) {
         if (!this._admin) {
-            this._admin = google.calendar('directory_v1');
+            this._admin = google.admin('directory_v1');
         }
         return await new Promise((resolve, reject) => {
             (this._jwtToken as JWT).authorize(async (err, result) => {
