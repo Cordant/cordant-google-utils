@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/Cordant/cordant-google-utils#readme",
   "dependencies": {
+    "@types/chai": "^4.2.3",
+    "@types/mocha": "^5.2.7",
     "@types/node": "^10.5.2",
     "googleapis": "^27.0.0"
   },
