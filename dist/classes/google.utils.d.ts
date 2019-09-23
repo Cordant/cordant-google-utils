@@ -12,7 +12,7 @@ export declare class GoogleUtils {
     createFolder(folderName: string, parentFolder: string): Promise<{
         folderName: string;
         folderId: string;
-    }>;
+    } | any>;
     countFoldersStartingWith(folderName: string, parentFolder: string): Promise<number>;
     writeSpreadsheetInFolder(fileName: string, data: any, parentFolderId: string, color?: boolean): Promise<any>;
     shareFolderWithContacts(folderId: string, emails: string[], emailMessage: string): Promise<any>;

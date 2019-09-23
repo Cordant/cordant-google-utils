@@ -14,7 +14,7 @@ class GoogleUtils {
     }
     impersonate(parameters) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!parameters || !parameters.key || !parameters.subject || !parameters.scopes || !parameters.email) {
+            if (!parameters) {
                 throw 'Invalid parameters';
             }
             this._jwtToken = yield new googleapis_1.google.auth.JWT(Object.assign({}, parameters));
@@ -31,7 +31,7 @@ class GoogleUtils {
     }
     createFolder(folderName, parentFolder) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (this._drive) {
+            if (!this._drive) {
                 this._drive = googleapis_1.google.drive({ version: 'v3', auth: this._auth });
             }
             return new Promise((resolve, reject) => {
@@ -59,7 +59,7 @@ class GoogleUtils {
         });
     }
     countFoldersStartingWith(folderName, parentFolder) {
-        if (this._drive) {
+        if (!this._drive) {
             this._drive = googleapis_1.google.drive({ version: 'v3', auth: this._auth });
         }
         return new Promise((resolve, reject) => {
@@ -82,7 +82,7 @@ class GoogleUtils {
         });
     }
     writeSpreadsheetInFolder(fileName, data, parentFolderId, color = false) {
-        if (this._drive || this._sheets) {
+        if (!this._drive || !this._sheets) {
             this._drive = googleapis_1.google.drive({ version: 'v3', auth: this._auth });
             this._sheets = googleapis_1.google.drive({ version: 'v4', auth: this._auth });
         }
@@ -121,8 +121,9 @@ class GoogleUtils {
             });
         });
     }
+    /* done */
     shareFolderWithContacts(folderId, emails, emailMessage) {
-        if (this._drive) {
+        if (!this._drive) {
             this._drive = googleapis_1.google.drive({ version: 'v3', auth: this._auth });
         }
         return new Promise((resolve, reject) => {
@@ -150,6 +151,7 @@ class GoogleUtils {
                             rejectI(err);
                         }
                         else {
+                            console.log('folder shared');
                             resolveI(data.data.id.length);
                         }
                     });
@@ -166,7 +168,7 @@ class GoogleUtils {
     * Please refer to the following documentation for more properties: https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets/request
     * */
     updateSpreadsheets(spreadsheetId, requestsData) {
-        if (this._sheets) {
+        if (!this._sheets) {
             this._sheets = googleapis_1.google.drive({ version: 'v4', auth: this._auth });
         }
         this._sheets.spreadsheets.batchUpdate({
